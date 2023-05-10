@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import ConnectionCreator from '../components/ConnectionCreator';
-import SchemaDisplay from '../components/SchemaDisplay';
-import QueryDisplay from '../components/QueryDisplay';
-import QueryCreator from '../components/QueryCreator';
-import ResultsDisplay from '../components/ResultsDisplay';
+import ConnectionCreator from '../components/ConnectionCreator/ConnectionCreator';
+import SchemaDisplay from '../components/SchemaDisplay/SchemaDisplay';
+import QueryDisplay from '../components/QueryDisplay/QueryDisplay';
+import QueryCreator from '../components/QueryCreator/QueryCreator';
+import ResultsDisplay from '../components/ResultsDisplay/ResultsDisplay';
 
 const MainContainer = () => {
   const [ inputText, setInputText ] = useState('Scott');
@@ -27,14 +27,20 @@ const MainContainer = () => {
 
   return (
     <>
-      <ConnectionCreator/>
-      <SchemaDisplay/>
+      <ConnectionCreator />
+      <SchemaDisplay schema={testSchema} />
       <QueryDisplay/>
       <QueryCreator/>
       <ResultsDisplay/>
-      <Button {...buttonProps}/>
+      {/* <Button {...buttonProps}/> */}
     </>
   );
+};
+
+
+const testSchema = {
+  name: 'database1',
+  tableList: [{name:'table1'}, {name:'table2'}, {name:'table3'}]
 };
 
 const testGet = async () => {

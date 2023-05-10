@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import Button from './ui/Button';
-import Input from './ui/Input';
+import Button from '../ui/Button';
+import Input from '../ui/Input';
+import styles from './ConnectionCreator.module.scss';
 
 const ConnectionCreator = (props) => {
   const [url, setURL] = useState('');
   const updateURL = () => {
-    console.log(inputText);
+    if (inputText.trim() === '') return;
     setURL(inputText);
   };
 
@@ -17,8 +18,8 @@ const ConnectionCreator = (props) => {
   };
 
   return (
-    <div>
-      <Input onChange={updateInputText} onKeyUp={handleKeyUp} displayText='Input Postgres Connection URL: '/>
+    <div className={styles.container}>
+      <Input onChange={updateInputText} onKeyUp={handleKeyUp} displayText='Postgres Connection URL: '/>
       <Button onClick={updateURL} id='connection-button'>Save</Button>
     </div>
   );
