@@ -1,4 +1,24 @@
 .container {
   grid-column: 1 / 4;
   grid-row: 5 / 7;
+  overflow-y: auto;
+  width: 100%;
+
+  align-items: center;
+}
+
+.error {
+  color: red;
+}
+
+.table {
+  thead th {
+    position: sticky;
+    top: -1px;
+    z-index: 20;
+    background-color: white;
+    
+  }
+
+
 }

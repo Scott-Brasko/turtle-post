@@ -2,49 +2,75 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import PropTypes from 'prop-types';
 import styles from './QueryDisplay.module.scss';
 
+
 const QueryDisplay = (props) => {
+  if (!props.queryAST) return <div className={styles.container}></div>;
+
+  const tableList = [];
+  props.queryAST.from.forEach((table, i) => {
+    // grab fields from schema
+    table.fields = props.schema.tables[table.table].fieldList.slice();
+    tableList.push(<TableDisplay table={table} key={i} />);
+  });
   return (
     <div className={styles.container}>
-      <TableDisplay />
+      {tableList}
     </div>
   );
 };
 
+QueryDisplay.propTypes = {
+  queryAST: PropTypes.object,
+  schema: PropTypes.object
+};
 
 const TableDisplay = (props) => {
+  
   return (
     <div>
-      <TableHeader />
-      <FieldTable />
+      <TableHeader tableName={props.table.table}/>
+      <FieldTable fields={props.table.fields}/>
     </div>
   );
+};
+
+TableDisplay.propTypes = {
+  table: PropTypes.object
 };
 
 const TableHeader = (props) => {
   return (
     <div>
-      <h3>Table1</h3>
+      <h3>{props.tableName}</h3>
       <CloseButton />
     </div>
   );
 };
 
+TableHeader.propTypes = {
+  tableName: PropTypes.string
+};
+
 const FieldTable = (props) => {
+  const fieldList = [];
+  props.fields.forEach((el, i) => {
+    fieldList.push(<FieldRow field={el} key={i}/>);
+  });
+
   return (
     <ul>
-      <FieldRow field={ {name:'field1'} } />
-      <FieldRow field={ {name:'field2'} } />
-      <FieldRow field={ {name:'field3'} } />
-      <FieldRow field={ {name:'field4'} } />
-      <FieldRow field={ {name:'field5'} } />
-      <FieldRow field={ {name:'field6'} } />
+      {fieldList}
     </ul>
   );
 };
 
+FieldTable.propTypes = {
+  fields: PropTypes.array
+};
+
 const FieldRow = (props) => {
   return (
-    <li>{props.field.name}</li>
+    <li>{props.field.column_name}</li>
   );
 };
 

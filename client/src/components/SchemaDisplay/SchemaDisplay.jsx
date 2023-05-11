@@ -5,39 +5,50 @@ import styles from './SchemaDisplay.module.scss';
 const SchemaDisplay = (props) => {
   return (
     <div className={styles.container}>
-      <Database schema={props.schema}/>
+      {props.schema[0] ? (
+        <em className={styles.error}>Invalid Postgres URI</em>
+      ) : (
+        <Database schema={props.schema[1]} />
+      )}
     </div>
   );
 };
 
 SchemaDisplay.propTypes = {
-  schema: PropTypes.object
+  schema: PropTypes.array,
 };
 
 // should revisit to make collapsible
 const Database = (props) => {
   const tableList = [];
 
-  props.schema.tableList.forEach((el, i) => tableList.push(<TableItem table={el} key={i}/>));
+  if (props.schema)
+    props.schema.tableList.forEach((el, i) =>
+      tableList.push(<TableItem table={el} key={i} />)
+    );
 
   return (
     <>
-      {props.schema.name}
-      {tableList}
+      {props.schema && (
+        <>
+          Database: {props.schema.database}
+          {tableList}
+        </>
+      )}
     </>
   );
 };
 
 Database.propTypes = {
-  schema: PropTypes.object
+  schema: PropTypes.object,
 };
 
 const TableItem = (props) => {
-  return <li className='table-item'>{props.table.name}</li>;
+  return <li className='table-item'>{props.table.table_name}</li>;
 };
 
 TableItem.propTypes = {
-  table: PropTypes.object
+  table: PropTypes.object,
 };
 
 export default SchemaDisplay;

@@ -1,16 +1,13 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
 import styles from './ConnectionCreator.module.scss';
 
 const ConnectionCreator = (props) => {
-  const [url, setURL] = useState('');
-  const updateURL = () => {
-    if (inputText.trim() === '') return;
-    setURL(inputText);
-  };
 
-  const [inputText, setInputText] = useState('');
+
+  const [inputText, setInputText] = useState('postgres://nmwquvrw:tqia7qeM2xv0pCH_QpCjXRvZP8f7sOeW@castor.db.elephantsql.com/nmwquvrw');
   const updateInputText = (e) => setInputText(e.target.value);
 
   const handleKeyUp = (e) => {
@@ -20,9 +17,15 @@ const ConnectionCreator = (props) => {
   return (
     <div className={styles.container}>
       <Input onChange={updateInputText} onKeyUp={handleKeyUp} displayText='Postgres Connection URL: '/>
-      <Button onClick={updateURL} id='connection-button'>Save</Button>
+      <Button onClick={props.updateURI(inputText)} id='connection-button'>Save</Button>
     </div>
   );
+
+  
+};
+
+ConnectionCreator.propTypes = {
+  updateURI: PropTypes.func
 };
 
 export default ConnectionCreator;

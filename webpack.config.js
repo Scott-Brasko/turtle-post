@@ -32,7 +32,7 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      '/test': {
+      '/sql': {
         target: 'http://localhost:3000/',
       },
     },

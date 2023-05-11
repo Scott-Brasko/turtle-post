@@ -2,14 +2,23 @@ import CodeMirror from '@uiw/react-codemirror';
 import { sql } from '@codemirror/lang-sql';
 import Button from '../ui/Button';
 import styles from './QueryCreator.module.scss';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 // import { okaidia } from '@uiw/codemirror-theme-okaidia';
 
 const QueryCreator = (props) => {
+  const defaultCode = 'SELECT *\nFROM MyTable';
+
+  const [inputText, setInputText] = useState(defaultCode);
+  const updateInputText = (e) => {
+    setInputText(e);
+  };
+
   return (
     <div className={styles.container}>
       <CodeMirror
-        value={'SELECT *\nFROM MyTable\n'}
+        value={defaultCode}
         height='200px'
         // theme={okaidia}
         basicSetup={{
@@ -17,11 +26,18 @@ const QueryCreator = (props) => {
           lintKeymap: true,
         }}
         extensions={[sql()]}
+        onChange={updateInputText}
       >
-        <Button>Execute</Button>
+        <Button disabled={!props.schemaStatus} onClick={props.updateQuery(inputText)} id='query-button'>Execute</Button>
       </CodeMirror>
     </div>
   );
+};
+
+QueryCreator.propTypes = {
+  updateQuery: PropTypes.func,
+  defaultCode: PropTypes.string,
+  schemaStatus: PropTypes.bool
 };
 
 export default QueryCreator;
