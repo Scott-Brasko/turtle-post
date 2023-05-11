@@ -4,11 +4,14 @@ import styles from './SchemaDisplay.module.scss';
 // should be easy to allow multiple DBs here
 const SchemaDisplay = (props) => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} card`}>
+      <h3 className='user-select-none'>Table Display</h3>
       {props.schema[0] ? (
-        <em className={styles.error}>Invalid Postgres URI</em>
+        <em className={`user-select-none ${styles.error}`}>Invalid Postgres URI</em>
       ) : (
+        <div className={`card`}>
         <Database schema={props.schema[1]} />
+        </div>
       )}
     </div>
   );
@@ -31,8 +34,8 @@ const Database = (props) => {
     <>
       {props.schema && (
         <>
-          Database: {props.schema.database}
-          {tableList}
+          <div className={`card-header user-select-none`}>Database: {props.schema.database}</div>
+          <ul className={`list-group list-group-flush`}>{tableList}</ul>
         </>
       )}
     </>
@@ -44,7 +47,11 @@ Database.propTypes = {
 };
 
 const TableItem = (props) => {
-  return <li className='table-item'>{props.table.table_name}</li>;
+  return (
+    <li className={`list-group-item ${styles.table}`}>
+      {props.table.table_name}
+    </li>
+  );
 };
 
 TableItem.propTypes = {

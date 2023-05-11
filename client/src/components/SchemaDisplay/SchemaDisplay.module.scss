@@ -1,8 +1,16 @@
 .container {
   grid-column: 1 / 1;
   grid-row: 2 / 5;
+  overflow-y: auto;
+  max-width: 300px;
+
+  padding: 10px;
 }
 
 .error {
   color: red;
+}
+
+.table {
+
 }

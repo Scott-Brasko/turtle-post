@@ -1,28 +1,32 @@
 import PropTypes from 'prop-types';
 import styles from './ResultsDisplay.module.scss';
-import Table from 'react-bootstrap/Table';
 
 const ResultsDisplay = (props) => {
+  if (props.queryResultError[0])
+    return (
+      <div className={`d-flex align-items-center justify-content-center ${styles.container}`}>
+        <div className={`card w-25 p-3  ${styles.error}`} style={{backgroundColor: '#eee'}} >{props.queryResultError[1]}</div>
+      </div>
+    );
   return (
-    <div className={styles.container}>
-      {props.queryResultError[0] && (
-        <em className={styles.error}>{props.queryResultError[1]}</em>
-      )}
-      {props.queryResults && props.queryResults.fields.length !== 0 && (
-        <Table striped hover bordered className={styles.table}>
-          <ResultsHeader columns={props.queryResults.fields} />
+    <div className={`card ${styles.container}`}>
+      {props.queryResults[0] && (
+        <table
+          className={`table table-light table-striped table-hover table-bordered ${styles.table}`}
+        >
+          <ResultsHeader columns={props.queryResults[1].fields} />
           <ResultsBody
-            rows={props.queryResults.rows}
-            columns={props.queryResults.fields}
+            rows={props.queryResults[1].rows}
+            columns={props.queryResults[1].fields}
           />
-        </Table>
+        </table>
       )}
     </div>
   );
 };
 
 ResultsDisplay.propTypes = {
-  queryResults: PropTypes.object,
+  queryResults: PropTypes.array,
   queryResultError: PropTypes.array,
 };
 
@@ -73,7 +77,9 @@ const ResultsRow = (props) => {
 
   props.columns.forEach((column, i) => {
     if (props.row[column.name])
-      resultItemList.push(<ResultsItem value={props.row[column.name]} key={i} />);
+      resultItemList.push(
+        <ResultsItem value={props.row[column.name]} key={i} />
+      );
     else resultItemList.push(<ResultsItem value={''} key={i} />);
   });
 

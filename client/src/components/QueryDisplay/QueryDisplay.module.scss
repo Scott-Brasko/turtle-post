@@ -1,9 +1,31 @@
 .container {
   grid-column: 2 / 4;
   grid-row: 2 / 4;
-
+  position: relative;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
   align-items: center;
 
+  height: auto;
+  width: auto;
+
+  .card {
+    max-height: 90%;
+    
+
+    .cardHeader {
+      font-size: 1em;
+    }
+
+    .cardTable {
+      overflow-y: auto;
+    }
+
+    .cardItem {
+      font-size: .75em;
+      padding: 5px;
+    }
+  }
 }

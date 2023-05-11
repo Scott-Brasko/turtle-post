@@ -38,7 +38,7 @@ const MainContainer = () => {
   }, [uri]);
 
   // query state
-  const [queryResults, setQueryResults] = useState();
+  const [queryResults, setQueryResults] = useState([false, {}]);
   const [queryAST, setQueryAST] = useState();
   const [queryResultError, setQueryResultError] = useState([false, '']);
 
@@ -54,20 +54,23 @@ const MainContainer = () => {
     if (!queryAST) return;
     const fetchData = async () => {
       const response = await fetchQueryResults(uri, parser.sqlify(queryAST));
-      if ('err' in response) setQueryResultError([true, response.err]);
+      if ('err' in response) {
+        setQueryResultError([true, response.err]);
+        // setQueryResults([false, {}]);
+      }
       else {
-        setQueryResults(response);
+        setQueryResults([true, response]);
         setQueryResultError([false, '']);
       }
     };
     fetchData();
   }, [queryAST]);
-
+  // console.log(queryResults);
   return (
     <>
       <ConnectionCreator updateURI={updateURI} />
       <SchemaDisplay schema={schema}  />
-      <QueryDisplay queryAST={queryAST} schema={schema[1]}/>
+      <QueryDisplay queryAST={queryAST} schema={schema[1]} queryResultError={queryResultError[0]} queryActive={queryResults[0]}/>
       <QueryCreator updateQuery={updateQueryAST} schemaStatus={schema[2]}/>
       <ResultsDisplay queryResults={queryResults} queryResultError={queryResultError} />
     </>

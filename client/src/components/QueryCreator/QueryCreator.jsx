@@ -16,10 +16,10 @@ const QueryCreator = (props) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`card ${styles.container}`}>
       <CodeMirror
         value={defaultCode}
-        height='200px'
+        height='215px'
         // theme={okaidia}
         basicSetup={{
           autocompletion: false,
@@ -28,8 +28,9 @@ const QueryCreator = (props) => {
         extensions={[sql()]}
         onChange={updateInputText}
       >
-        <Button disabled={!props.schemaStatus} onClick={props.updateQuery(inputText)} id='query-button'>Execute</Button>
+        <Button type='button' disabled={!props.schemaStatus} onClick={props.updateQuery(inputText)} className={`btn btn-outline-primary ${styles.button}`} id='query-button'>Execute</Button>
       </CodeMirror>
+      
     </div>
   );
 };
