@@ -17,7 +17,7 @@ const ConnectionCreator = (props) => {
   return (
     <div className={styles.container}>
       <div className={`card user-select-none ${styles.card}`}>
-      Postgres Connection URL: 
+      Postgres Connection URI: 
         <Input
           onChange={updateInputText}
           onKeyUp={handleKeyUp}

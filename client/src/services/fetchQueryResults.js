@@ -6,7 +6,7 @@ const fetchQueryResults = async (pg_uri, query) => {
       'Content-Type': 'application/json;charset=UTF-8'
     }
   };
-  const url = `/sql/query?uri=${pg_uri}&queryString=${query}`;
+  const url = `http://localhost:3000/sql/query?uri=${pg_uri}&queryString=${query}`;
   try {
     console.log(url);
     const response = await fetch(url, options);

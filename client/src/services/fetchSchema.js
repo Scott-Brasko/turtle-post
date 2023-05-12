@@ -7,7 +7,7 @@ const fetchSchema = async (pg_uri) => {
       'Content-Type': 'application/json;charset=UTF-8'
     }
   };
-  const url = `/sql/schema?uri=${pg_uri}`;
+  const url = `http://localhost:3000/sql/schema?uri=${pg_uri}`;
   try {
     console.log(url);
     const response = await fetch(url, options);

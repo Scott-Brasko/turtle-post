@@ -4,7 +4,7 @@ const Input = (props) => {
   return (
     <>
       <label>
-        {props.displayText} <input className={props.className} onChange={props.onChange} onKeyUp={props.onKeyUp}/>
+        {props.displayText} <input className={props.className} onChange={props.onChange} onKeyUp={props.onKeyUp} spellCheck={false}/>
       </label>
     </>
   );

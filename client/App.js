@@ -5,11 +5,11 @@ const App = () => {
     <>
       <div className='brand'>
         {/* <span className='brand-span'> */}
-          <span>Turtle</span>
-          {/* <div className='logo-container'> */}
-            <img className='logo' src={logo} alt='turtle logo' />
-          {/* </div> */}
-          <span>Post</span>
+        <span>Turtle</span>
+        {/* <div className='logo-container'> */}
+        <img className='logo' src={logo} alt='turtle logo' />
+        {/* </div> */}
+        <span>Post</span>
         {/* </span> */}
       </div>
       <MainContainer />
